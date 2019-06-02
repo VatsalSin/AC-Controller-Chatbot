@@ -103,6 +103,9 @@ assistant.intent('set_temperature', conv => {
          if(temp_prev == temp){
           resolve("Temperature is already set to " + temp);
          }
+        else if(temp>30 || temp<18){
+           resolve("The temperature range for the Air Conditioner is from 18 degree celsium to 30 degree celcius");
+        }
          else{
             axios.patch('https://ac-controller-25c84.firebaseio.com/.json',{"desired_temp": temp}
             )
