@@ -95,7 +95,7 @@ assistant.intent('power_device', conv => {
 assistant.intent('set_temperature', conv => {
 
   return new Promise((resolve, reject) => {
-    let temp = conv.parameters.number;
+    let temp = parseInt(conv.parameters.number);
       console.log(temp+1);
       axios.get('https://ac-controller-25c84.firebaseio.com/device_power.json')
       .then( (result) => {
