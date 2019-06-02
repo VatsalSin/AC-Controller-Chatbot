@@ -113,10 +113,31 @@ server.use(bodyParser.json({type: 'application/json'}));
 assistant.intent('power_ac', conv => {
 
   return new Promise((resolve, reject) => {
-    let ac_val = conv.parameters.power_status;
+    let ac = conv.parameters.power_status;
+      if(ac == "on"){
+        ac_power = true;
+      }
+      else{
+       ac_power = false;
+      }
       axios.get('https://ac-controller-25c84.firebaseio.com/ac_power.json')
       .then( (result) => {
         console.log(result.data);
+        let ac_power_prev = result.data;
+         if(ac_power == ac_power_prev){
+          resolve("Air Conditioner is already " + ac);
+         }
+         else{
+            axios.post('https://ac-controller-25c84.firebaseio.com/.json',{ 
+              "ac_power": ac_power}
+            )
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+             console.log(error);
+            });
+         }
     })
     .catch((error) => {
       reject(error);
