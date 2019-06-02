@@ -91,6 +91,42 @@ assistant.intent('power_device', conv => {
       conv.close(error);
   });
 });
+
+assistant.intent('set_temperature', conv => {
+
+  return new Promise((resolve, reject) => {
+    let temp = conv.parameters.number;
+      console.log(temp+1);
+      axios.get('https://ac-controller-25c84.firebaseio.com/device_power.json')
+      .then( (result) => {
+        console.log(result.data);
+        let device_power_prev = result.data;
+         if(device_power == device_power_prev){
+          resolve("Device is already " + device);
+         }
+         else{
+            axios.patch('https://ac-controller-25c84.firebaseio.com/.json',{"device_power": device_power}
+            )
+            .then(function (response) {
+              resolve("Device turned "+device);
+            })
+            .catch(function (error) {
+             console.log(error);
+            });
+         }
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  })
+  .then(result => {
+      conv.ask(result);
+  })
+  .catch(error => {
+      conv.close(error);
+  });
+});
+
 server.post('/webhook', assistant);
 
 server.listen(server.get('port'), function () {
