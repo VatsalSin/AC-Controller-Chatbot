@@ -128,7 +128,7 @@ assistant.intent('power_ac', conv => {
           resolve("Air Conditioner is already " + ac);
          }
          else{
-            axios.patch('https://ac-controller-25c84.firebaseio.com/ac_power.json',{ac_power}
+            axios.patch('https://ac-controller-25c84.firebaseio.com/.json',{"ac_power": ac_power}
             )
             .then(function (response) {
               console.log(response);
