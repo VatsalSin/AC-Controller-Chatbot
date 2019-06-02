@@ -95,20 +95,19 @@ assistant.intent('power_device', conv => {
 assistant.intent('set_temperature', conv => {
 
   return new Promise((resolve, reject) => {
-    let temp = parseInt(conv.parameters.number);
-      console.log(temp+1);
-      axios.get('https://ac-controller-25c84.firebaseio.com/device_power.json')
+      let temp = parseInt(conv.parameters.number);
+      axios.get('https://ac-controller-25c84.firebaseio.com/desired_temp.json')
       .then( (result) => {
         console.log(result.data);
-        let device_power_prev = result.data;
-         if(device_power == device_power_prev){
-          resolve("Device is already " + device);
+        let temp_prev = result.data;
+         if(temp_prev == temp){
+          resolve("Temperature is already set to " + temp);
          }
          else{
-            axios.patch('https://ac-controller-25c84.firebaseio.com/.json',{"device_power": device_power}
+            axios.patch('https://ac-controller-25c84.firebaseio.com/.json',{"desired_temp": temp}
             )
             .then(function (response) {
-              resolve("Device turned "+device);
+              resolve("Temperature is now set to "+temp);
             })
             .catch(function (error) {
              console.log(error);
