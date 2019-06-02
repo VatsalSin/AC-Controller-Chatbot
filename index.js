@@ -73,7 +73,7 @@ assistant.intent('power_device', conv => {
             axios.patch('https://ac-controller-25c84.firebaseio.com/.json',{"device_power": device_power}
             )
             .then(function (response) {
-              resolve("Device turned "+ac);
+              resolve("Device turned "+device);
             })
             .catch(function (error) {
              console.log(error);
