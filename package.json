@@ -1,7 +1,7 @@
 {
-  "name": "dr.stock",
+  "name": "ac-controller-chatbot",
   "version": "1.0.0",
-  "description": "Backend for webhook of google action named Dr. Stock",
+  "description": "chatbot webhook for ac-controller",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -13,9 +13,6 @@
   },
   "author": "Vatsal Singhal",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dsciitpatna/Dr.-Stocks/issues"
-  },
   "homepage": "https://github.com/dsciitpatna/Dr.-Stocks#readme",
   "dependencies": {
     "actions-on-google": "^2.7.0",
